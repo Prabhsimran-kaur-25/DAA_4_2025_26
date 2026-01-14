@@ -52,5 +52,8 @@ cout<<duration.count();
 }
 
 
-      
+  //Answers
+// 1. Recurrance Relation - T(n)=3T(n/2)+ (n^2/log n)+n
+// 2. Time complexity - O(n^2)
+
       
