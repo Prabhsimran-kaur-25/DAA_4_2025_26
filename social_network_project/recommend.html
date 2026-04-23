@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Recommendations</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+  text-align: center;
+}
+
+h2 {
+  margin-top: 20px;
+}
+
+input {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 8px;
+  border: none;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #f59e0b;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #d97706;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.card {
+  background: #1e293b;
+  margin: 10px auto;
+  padding: 15px;
+  width: 250px;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  background: #334155;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>💡 Friend Recommendations</h2>
+<p style="color:#cbd5f5;">Get suggested users you may know based on connections.</p>
+<input id="user" placeholder="Enter username">
+<button onclick="getRec()">Get Recommendations</button>
+
+<div class="container" id="r"></div>
+
+<script>
+async function getRec(){
+  let u = document.getElementById("user").value.trim();
+
+  if(!u){
+    alert("Enter username first 😑");
+    return;
+  }
+
+  try{
+    let res = await fetch(`/recommend?u=${u}`);
+    let data = await res.json();
+
+    let container = document.getElementById("r");
+    container.innerHTML = "";
+
+    if(data.length === 0){
+      container.innerHTML = "No recommendations 😅";
+      return;
+    }
+
+    data.forEach(x=>{
+      container.innerHTML += `
+        <div class="card">
+          👤 ${x.name} <br>
+          🔥 ${x.mutuals} mutual friends
+        </div>
+      `;
+    });
+
+  }catch(err){
+    alert("Server not running ❌");
+    console.log(err);
+  }
+}
+</script>
+
+</body>
+</html>

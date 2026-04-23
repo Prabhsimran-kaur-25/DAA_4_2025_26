@@ -1,0 +1,37 @@
+<h2>➕ Add User / Friend</h2>
+<p style="color:#cbd5f5;">Add new users or create connections between them.</p>
+<input id="user" placeholder="Enter Username">
+<button onclick="addUser()">Add User</button>
+
+<br><br>
+<h3>Add names of two users you want to connect with each other</h3>
+<input id="u" placeholder="User 1">
+<input id="v" placeholder="User 2">
+<button onclick="addFriend()">Add Friend</button>
+
+
+<style>
+body { font-family: Arial; background:#0f172a; color:white; text-align:center;}
+input { padding:10px; margin:5px; border-radius:8px; border:none;}
+button {
+  padding:10px 20px;
+  border:none;
+  border-radius:8px;
+  background:#3b82f6;
+  color:white;
+  cursor:pointer;
+}
+button:hover { background:#2563eb; }
+</style>
+
+<script>
+async function addUser(){
+ await fetch("/addUser",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({user:user.value})});
+ alert("User added 🎉");
+}
+
+async function addFriend(){
+ await fetch("/addFriend",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({u:u.value,v:v.value})});
+ alert("Friend added 🤝");
+}
+</script>

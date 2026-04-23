@@ -1,0 +1,23 @@
+<h2>🛣️ Shortest Path</h2>
+<p style="color:#cbd5f5;">Find the shortest connection path between two users.</p>
+<input id="u" placeholder="Start User">
+<input id="v" placeholder="End User">
+<button onclick="go()">Find Path</button>
+
+<h3 id="r"></h3>
+
+<style>
+body { font-family: Arial; background:#0f172a; color:white; text-align:center;}
+input, button { padding:10px; margin:5px; border-radius:8px; border:none;}
+button { background:#ef4444; color:white; cursor:pointer;}
+button:hover { background:#dc2626; }
+</style>
+
+<script>
+async function go(){
+ let res=await fetch(`/path?u=${u.value}&v=${v.value}`);
+ let d=await res.json();
+
+ r.innerText = d.join(" ➝ ");
+}
+</script>
